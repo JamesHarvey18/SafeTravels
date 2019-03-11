@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+
+        <!-- GoogleAPI jQuery CDN -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <!-- Font Awesome Icons -->
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+        <!-- our own stylesheet -->
+        <link rel="stylesheet" type="text/css" href="Resources/Styles/home-style.css">
+
+        <title>Safe Travels</title>
+    </head>
+    <body>
+        <div id="map"></div>
+        <div id="left-panel">
+            <div id="content" style="display:inline;">
+                <div id="tabs">
+                    <button type="button" class="btn btn-default active" title="Customize Values">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-default" title="User Settings" onclick="window.location.href = 'login.html'">
+                        <i class="fas fa-user"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-default" title="About/FAQ" onclick="window.location.href = 'faq.html'">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </div>
+
+                <div id="customize-panel">
+                    <form class="form" id="options-form" action="calculate" method="post">
+                        <h1>Demographic Info</h1>
+                        <div class="form-group row" id="state">
+                            <label class="control-label col-sm-4" for="state">
+                                Blood Type:
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="state" name="state">
+                                    <option name="" value="MA">A</option>
+                                    <option name="Ohio" value="OH">B</option>
+                                    <option name="Oregon" value="OR">O</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" id="districts">
+                            <label class="control-label col-sm-4" for="districts">
+                                Age:
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" type="number" id="numDistricts" name="numDistricts" min="1" max="100">
+                            </div>
+                        </div>
+
+                        <div class="form-group row" id="state">
+                            <label class="control-label col-sm-4" for="state">
+                                Gender:
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="state" name="state">
+                                    <option name="Male" value="M">Male</option>
+                                    <option name="Female" value="F">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" id="state">
+                            <label class="control-label col-sm-4" for="state">
+                                Asthma:
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="state" name="state">
+                                    <option name="Y" value="M">Yes</option>
+                                    <option name="N" value="F">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" id="electionYear">
+                            <label class="control-label col-sm-4" for="year">
+                                Country of Travel:
+                            </label>
+                            <div class="col-sm-7">
+                                <select class="form-control" id="seedStrategy" name="seedStrategy">
+                                    <option>United States of America</option>
+                                    <option>Nigeria</option>
+                                    <option>China</option>
+                                    <option>India</option>
+                                    <option>Italy</option>
+                                    <option>France</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <button id="submit-btn" type="submit" onclick="window.alert('Please make sure weights add up to 1!');" class="btn btn-success">CALCULATE</button>
+                    </form>
+                </div> <!-- end customize panel div -->
+
+                <div id="user-settings-panel" style="display:none;"> <!-- will be displayed if user presses user button -->
+                    <h2>User Preferences</h2>
+                </div> <!-- end user settings panel div -->
+            </div> <!-- end content div -->
+        </div> <!-- end left-panel div -->
+
+        <div id="expander">
+            <button onclick="expand();"><i class="fas fa-arrows-alt-h"></i></button>
+        </div>
+        <div id="search">
+            <input id="pac-input" class="controls" type="text" placeholder=" Search...">
+        </div>
+
+        <div id="user-controls">
+            <button type="button" class="btn btn-default disabled" title="Save Redistricting" onclick="window.alert('You must be signed in to use this feature!');">
+                <i class="far fa-save"></i>
+            </button>
+
+            <button type="button" class="btn btn-default disabled" title="Load Redistricting" onclick="window.alert('You must be signed in to use this feature!');">
+                <i class="fas fa-upload"></i>
+            </button>
+
+            <button type="button" class="btn btn-default disabled" title="View Saved List" onclick="window.alert('You must be signed in to use this feature!');">
+                <i class="fas fa-list-ul"></i>
+            </button>
+
+            <button type="button" class="btn btn-default" title="Pause Algorithm" onclick="window.alert('Pausing algorithm...');">
+                <i class="far fa-pause-circle"></i>
+            </button>
+
+            <button type="button" class="btn btn-default" title="Cancel Algorithm" onclick="window.alert('Cancelling algorithm...');">
+                <i class="far fa-times-circle"></i>
+            </button>
+
+
+
+        <script src="Resources/Scripts/properties.js"></script>
+        <script src="Resources/Scripts/map.js"></script>
+        <script src="Resources/Scripts/search.js"></script>
+
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCrjByEUtH5awpWcjFJqLBB7W8npgKKGo&libraries=places&callback=initialize"
+        async defer></script>
+    </body>
+</html>
